@@ -1,20 +1,25 @@
 import { useState } from "react";
-import { Users, Monitor, Info, X, Instagram, Sparkles, Gamepad2 } from "lucide-react";
+import { Users, Monitor, Info, X, Instagram, Sparkles, Gamepad2, CircleUser as UserCircle } from "lucide-react";
 import UpdateCountdown from "./UpdateCountdown";
+import UserHeader from "./UserHeader";
 
 interface MainMenuProps {
   onLocal: () => void;
   onOnline: () => void;
+  onProfile: () => void;
 }
 
-export default function MainMenu({ onLocal, onOnline }: MainMenuProps) {
+export default function MainMenu({ onLocal, onOnline, onProfile }: MainMenuProps) {
   const [showAbout, setShowAbout] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative z-10">
+    <div className="min-h-screen flex flex-col relative z-10">
       <div className="futuristic-bg" />
 
-      <div className="w-full max-w-lg text-center relative z-10">
+      <UserHeader onProfileClick={onProfile} />
+
+      <div className="flex-1 flex items-center justify-center p-4">
+        <div className="w-full max-w-lg text-center relative z-10">
         {/* Title */}
         <div className="mb-2">
           <h1 className="neon-title text-4xl md:text-5xl font-black tracking-wider uppercase flex items-center justify-center gap-3">
@@ -64,6 +69,19 @@ export default function MainMenu({ onLocal, onOnline }: MainMenuProps) {
           </button>
 
           <button
+            onClick={onProfile}
+            className="neon-card w-full flex items-center gap-4 p-5 text-left group cursor-pointer"
+          >
+            <div className="w-12 h-12 rounded-xl bg-muted/50 border border-border flex items-center justify-center group-hover:border-accent/40 group-hover:shadow-[0_0_10px_hsl(280_100%_65%/0.15)] transition-all">
+              <UserCircle className="w-6 h-6 text-accent" />
+            </div>
+            <div>
+              <span className="font-[Orbitron] font-semibold text-foreground block text-sm uppercase tracking-wider">Perfil</span>
+              <span className="text-sm text-muted-foreground">Estatísticas e configurações</span>
+            </div>
+          </button>
+
+          <button
             onClick={() => setShowAbout(true)}
             className="neon-card w-full flex items-center gap-4 p-5 text-left group cursor-pointer"
           >
@@ -94,6 +112,7 @@ export default function MainMenu({ onLocal, onOnline }: MainMenuProps) {
             <span className="font-semibold text-foreground/70">IA Lux & Wise</span>
           </p>
         </footer>
+        </div>
       </div>
 
       {/* About modal */}
