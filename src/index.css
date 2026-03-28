@@ -1,0 +1,364 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 95%;
+
+    --primary: 180 100% 50%;
+    --primary-foreground: 240 10% 4%;
+    --secondary: 240 10% 12%;
+    --secondary-foreground: 0 0% 90%;
+    --muted: 240 8% 15%;
+    --muted-foreground: 240 5% 55%;
+    --accent: 280 100% 65%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 85% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --card: 240 10% 8%;
+    --card-foreground: 0 0% 95%;
+    --border: 240 10% 18%;
+    --input: 240 10% 15%;
+    --ring: 180 100% 50%;
+
+    --popover: 240 10% 8%;
+    --popover-foreground: 0 0% 95%;
+
+    --player-x: 0 100% 60%;
+    --player-o: 210 100% 60%;
+
+    --neon-glow: 180 100% 50%;
+    --neon-accent: 280 100% 65%;
+
+    --board-active: 240 10% 10%;
+    --board-surface: 240 10% 7%;
+    --board-bg: 240 10% 5%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 240 10% 6%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 180 100% 50%;
+    --sidebar-primary-foreground: 240 10% 4%;
+    --sidebar-accent: 240 10% 12%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 240 10% 18%;
+    --sidebar-ring: 180 100% 50%;
+  }
+
+  body {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Rajdhani', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+
+  /* ===== FUTURISTIC BACKGROUND ===== */
+
+  .futuristic-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 20% 50%, hsl(180 100% 50% / 0.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, hsl(280 100% 65% / 0.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 100%, hsl(210 100% 60% / 0.02) 0%, transparent 40%),
+      hsl(var(--background));
+  }
+
+  .futuristic-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(hsl(180 100% 50% / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(180 100% 50% / 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  /* Particles */
+  .futuristic-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, hsl(180 100% 80% / 0.4), transparent),
+      radial-gradient(1px 1px at 30% 70%, hsl(280 100% 80% / 0.3), transparent),
+      radial-gradient(1.5px 1.5px at 50% 10%, hsl(0 0% 100% / 0.5), transparent),
+      radial-gradient(1px 1px at 70% 40%, hsl(180 100% 80% / 0.3), transparent),
+      radial-gradient(1px 1px at 90% 80%, hsl(210 100% 80% / 0.4), transparent),
+      radial-gradient(1.5px 1.5px at 15% 90%, hsl(0 0% 100% / 0.3), transparent),
+      radial-gradient(1px 1px at 85% 15%, hsl(280 100% 80% / 0.35), transparent),
+      radial-gradient(1px 1px at 45% 55%, hsl(180 100% 80% / 0.25), transparent),
+      radial-gradient(1px 1px at 60% 85%, hsl(0 0% 100% / 0.3), transparent),
+      radial-gradient(1.5px 1.5px at 25% 45%, hsl(210 100% 80% / 0.35), transparent);
+    animation: twinkle 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes twinkle {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+
+  /* ===== NEON TEXT ===== */
+
+  .neon-title {
+    font-family: 'Orbitron', monospace;
+    color: hsl(0 0% 100%);
+    text-shadow:
+      0 0 10px hsl(180 100% 50% / 0.5),
+      0 0 30px hsl(180 100% 50% / 0.3),
+      0 0 60px hsl(180 100% 50% / 0.15);
+  }
+
+  .neon-text {
+    text-shadow:
+      0 0 8px hsl(180 100% 50% / 0.4),
+      0 0 20px hsl(180 100% 50% / 0.2);
+  }
+
+  /* ===== NEON CARD ===== */
+
+  .neon-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .neon-card:hover {
+    border-color: hsl(var(--neon-glow) / 0.4);
+    box-shadow:
+      0 0 15px hsl(var(--neon-glow) / 0.1),
+      inset 0 0 15px hsl(var(--neon-glow) / 0.03);
+  }
+
+  /* ===== NEON BUTTON ===== */
+
+  .neon-btn {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 0.875rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.875rem;
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.3);
+  }
+
+  .neon-btn:hover {
+    box-shadow:
+      0 0 20px hsl(var(--primary) / 0.5),
+      0 0 40px hsl(var(--primary) / 0.2);
+    transform: translateY(-1px);
+  }
+
+  /* ===== TABULEIRO GRANDE ===== */
+
+  .big-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(4px, 2vw, 12px);
+    padding: clamp(6px, 2vw, 12px);
+
+    background: hsl(var(--board-bg));
+    border: 1px solid hsl(var(--border));
+    border-radius: 16px;
+
+    width: 100%;
+    max-width: min(560px, 95vw);
+    margin: 0 auto;
+    aspect-ratio: 1;
+    overflow: hidden;
+
+    box-shadow:
+      0 0 30px hsl(var(--neon-glow) / 0.05),
+      inset 0 0 30px hsl(var(--neon-glow) / 0.02);
+  }
+
+  /* ===== TABULEIROS PEQUENOS ===== */
+
+  .small-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    padding: clamp(3px, 1vw, 6px);
+
+    background: hsl(var(--board-surface));
+    border: 1px solid hsl(var(--border) / 0.5);
+    border-radius: 8px;
+
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .small-board.board-active {
+    background: hsl(var(--board-active));
+    z-index: 2;
+  }
+
+  .small-board.board-inactive {
+    opacity: 0.35;
+  }
+
+  .small-board.board-active-x {
+    border-color: hsl(var(--player-x) / 0.6);
+    box-shadow:
+      0 0 10px hsl(var(--player-x) / 0.2),
+      inset 0 0 10px hsl(var(--player-x) / 0.05);
+  }
+
+  .small-board.board-active-o {
+    border-color: hsl(var(--player-o) / 0.6);
+    box-shadow:
+      0 0 10px hsl(var(--player-o) / 0.2),
+      inset 0 0 10px hsl(var(--player-o) / 0.05);
+  }
+
+  /* ===== CÉLULAS ===== */
+
+  .cell-btn {
+    aspect-ratio: 1;
+    background: hsl(var(--board-surface));
+    border: 1px solid hsl(var(--border) / 0.3);
+    border-radius: 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(0.8rem, 3vw, 1.3rem);
+    font-weight: 800;
+
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+
+    transition: all 0.2s ease;
+  }
+
+  .cell-btn:hover:not(.cell-taken) {
+    background: hsl(var(--muted));
+    border-color: hsl(var(--neon-glow) / 0.3);
+    box-shadow: 0 0 8px hsl(var(--neon-glow) / 0.15);
+    transform: scale(1.05);
+  }
+
+  .cell-btn.cell-taken {
+    cursor: default;
+  }
+
+  .cell-x {
+    color: hsl(var(--player-x));
+    text-shadow: 0 0 10px hsl(var(--player-x) / 0.5);
+  }
+
+  .cell-o {
+    color: hsl(var(--player-o));
+    text-shadow: 0 0 10px hsl(var(--player-o) / 0.5);
+  }
+
+  /* ===== OVERLAY DE VITÓRIA ===== */
+
+  .won-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 900;
+
+    border-radius: 8px;
+    z-index: 5;
+    pointer-events: none;
+    animation: pop 0.3s ease;
+  }
+
+  .won-overlay-x {
+    background: hsl(var(--player-x) / 0.15);
+    color: hsl(var(--player-x));
+    text-shadow: 0 0 20px hsl(var(--player-x) / 0.6);
+  }
+
+  .won-overlay-o {
+    background: hsl(var(--player-o) / 0.15);
+    color: hsl(var(--player-o));
+    text-shadow: 0 0 20px hsl(var(--player-o) / 0.6);
+  }
+
+  .won-overlay-tie {
+    background: hsl(var(--muted) / 0.8);
+    color: hsl(var(--muted-foreground));
+    font-size: 2rem;
+  }
+
+  /* ===== ANIMAÇÕES ===== */
+
+  @keyframes pop {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes mark-appear {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .cell-animate {
+    animation: mark-appear 0.25s ease;
+  }
+
+  @keyframes victory-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 transparent; }
+    50% { box-shadow: 0 0 40px 15px var(--pulse-color); }
+  }
+
+  .victory-pulse-x {
+    --pulse-color: hsl(var(--player-x) / 0.25);
+    animation: victory-pulse 1.5s ease infinite;
+  }
+
+  .victory-pulse-o {
+    --pulse-color: hsl(var(--player-o) / 0.25);
+    animation: victory-pulse 1.5s ease infinite;
+  }
+
+  @keyframes modal-enter {
+    0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  @keyframes neon-pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  .neon-pulse {
+    animation: neon-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes border-glow {
+    0%, 100% { border-color: hsl(var(--neon-glow) / 0.2); }
+    50% { border-color: hsl(var(--neon-glow) / 0.5); }
+  }
+}
